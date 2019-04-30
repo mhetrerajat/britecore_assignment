@@ -60,13 +60,13 @@ REST API is now running on http://localhost:8000
 
 ### Endpoints
 
-| Method | URL | Description |
-| ------ | --- | ----------- |
-| GET    | /   | Says Hello  |
-|        |     |             |
-|        |     |             |
-|        |     |             |
-|        |     |             |
+| Method | URL      | Description |
+| ------ | -------- | ----------- |
+| GET    | /api/v1/ | Says Hello  |
+|        |          |             |
+|        |          |             |
+|        |          |             |
+|        |          |             |
 
 #### Sample Requests
 
