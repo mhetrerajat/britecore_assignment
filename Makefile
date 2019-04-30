@@ -19,7 +19,7 @@ pretty:
 	find . -type d -name '__pycache__' -delete
 	isort -rc --atomic $(PROJECT_HOME)
 	find . -type f -name "*.py" -exec $(PYTHON) -m yapf --recursive --parallel --in-place --verbose --style=pep8 {} \;
-	find . -type f -name "*.py" -exec $(PYTHON) -m autoflake --in-place --remove-unused-variables {} \;
+	find . -type f -name "*.py" -exec $(PYTHON) -m autoflake --recursive --in-place --remove-unused-variables --remove-all-unused-imports --exclude=__init__.py {} \;
 
 test:
 	$(PYTHON) -m unittest
