@@ -84,3 +84,12 @@ REST API is now running on http://localhost:8000
       "password": "dummy"
   }' 'http://localhost:8000/api/v1/auth/register'
   ```
+
+### CLI
+
+```bash
+# Create admin user
+flask initdb
+```
+
+
