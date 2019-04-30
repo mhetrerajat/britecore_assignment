@@ -5,6 +5,16 @@ LABEL MAINTAINER="Rajat Mhetre <mhetrerajat@gmail.com>"
 WORKDIR /app
 
 COPY . /app
+
+ENV SECRET_KEY="48tkMdPi-dPyIdqGtwGqYbG-argF699U1-H46XmEmU0="
+
+ENV FLASK_APP=run.py
+ENV FLASK_ENV=development
+
+ENV DEV_DATABASE_URL=sqlite:////tmp/britecore_dev.db
+ENV TEST_DATABASE_URL=sqlite:////tmp/britecore_test.db
+ENV DATABASE_URL=sqlite:////tmp/britecore.db
+
 RUN pip install pipenv
 RUN pipenv install -r requirements.txt
 
