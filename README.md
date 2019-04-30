@@ -60,13 +60,13 @@ REST API is now running on http://localhost:8000
 
 ### Endpoints
 
-| Method | URL      | Description |
-| ------ | -------- | ----------- |
-| GET    | /api/v1/ | Says Hello  |
-|        |          |             |
-|        |          |             |
-|        |          |             |
-|        |          |             |
+| Method | URL                   | Description                                                                                                              |
+| ------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| GET    | /api/v1/              | Says Hello                                                                                                               |
+| POST   | /api/v1/auth/register | This endpoint can be used to create user. These user credentails will be used to do Basic Auth with other API Endpoints. |
+|        |                       |                                                                                                                          |
+|        |                       |                                                                                                                          |
+|        |                       |                                                                                                                          |
 
 #### Sample Requests
 
@@ -74,4 +74,13 @@ REST API is now running on http://localhost:8000
   
   ```bash
   curl -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/'
+  ```
+
+-    Create user
+  
+  ```bash
+  curl -XPOST -H "Content-type: application/json" -d '{
+      "username": "dummy",
+      "password": "dummy"
+  }' 'http://localhost:8000/api/v1/auth/register'
   ```

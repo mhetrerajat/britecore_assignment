@@ -23,9 +23,14 @@ def create_app(config_name):
     db.init_app(app)
 
     api = Api(app, prefix="/api/v1")
+    auth_api = Api(app, prefix='/api/v1/auth')
 
     from app.resources.hello import Hello
     api.add_resource(Hello, '/')
+
+    # Auth Resources
+    from app.resources.register import Register
+    auth_api.add_resource(Register, '/register')
 
     # Error Handler
     @app.errorhandler(ApiException)
