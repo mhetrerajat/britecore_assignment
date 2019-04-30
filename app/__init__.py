@@ -3,6 +3,7 @@ from flask_httpauth import HTTPBasicAuth
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
+from app.exceptions import ApiException
 from config import config
 
 db = SQLAlchemy()
@@ -20,5 +21,15 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     db.init_app(app)
+
+    api = Api(app, prefix="/api/v1")
+
+    from app.resources.hello import Hello
+    api.add_resource(Hello, '/')
+
+    # Error Handler
+    @app.errorhandler(ApiException)
+    def handle_api_error(error):
+        return error.get_response()
 
     return app
