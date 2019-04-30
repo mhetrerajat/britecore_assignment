@@ -12,6 +12,12 @@ autoflake = "*"
 flask-testing = "*"
 
 [packages]
+flask-restful = "*"
+flask-migrate = "*"
+flask-sqlalchemy = "*"
+flask-httpauth = "*"
+passlib = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
