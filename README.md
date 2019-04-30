@@ -57,3 +57,21 @@ REST API is now running on http://localhost:8000
 - [ ] Integration or Unit tests
 
 - [ ] Authentication so that only authorized users can query the API
+
+### Endpoints
+
+| Method | URL | Description |
+| ------ | --- | ----------- |
+| GET    | /   | Says Hello  |
+|        |     |             |
+|        |     |             |
+|        |     |             |
+|        |     |             |
+
+#### Sample Requests
+
+- Says Hello
+  
+  ```bash
+  curl -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/'
+  ```
