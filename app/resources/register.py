@@ -1,4 +1,4 @@
-from flask import abort, make_response
+from flask import make_response
 from flask.json import jsonify
 from flask_restful import Resource, reqparse
 

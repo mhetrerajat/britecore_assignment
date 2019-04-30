@@ -13,7 +13,6 @@ if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
 
 from flask_migrate import Migrate
-from flask_migrate import upgrade as db_upgrade
 
 from app import create_app, db
 

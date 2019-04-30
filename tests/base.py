@@ -3,8 +3,6 @@ from flask_testing import TestCase
 from app import create_app as _create_app
 from app import db
 
-from .context import app
-
 
 class BaseTestCase(TestCase):
     """ Base Tests """

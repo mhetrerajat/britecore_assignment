@@ -1,10 +1,8 @@
 import json
 
-from app import create_app, db
+from app import db
 from app.models import User
 from tests.base import BaseTestCase
-
-from .context import app
 
 
 def register_user(self, username, password):

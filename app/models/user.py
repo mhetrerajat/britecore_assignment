@@ -1,8 +1,6 @@
 from datetime import datetime
 
-from flask import current_app as app
 from passlib.apps import custom_app_context as pwd_context
-from sqlalchemy.types import Enum
 
 from app import auth, db
 
