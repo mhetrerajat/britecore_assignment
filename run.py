@@ -22,5 +22,18 @@ app = create_app(os.getenv('FLASK_ENV') or 'default')
 app.app_context().push()
 migrate = Migrate(app, db)
 
+
+@app.cli.command()
+def initdb():
+    from app.models import User
+
+    # Create admin user
+    user = User.query.filter_by(username="admin").first()
+    if not user:
+        user = User(username="admin", password="admin")
+        db.session.add(user)
+        db.session.commit()
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
