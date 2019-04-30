@@ -28,7 +28,8 @@ requirements:
 	$(PYTHON) -m pip freeze > requirements.txt
 
 testdeploy:
-	docker stop $(DOCKER_CONTAINER)
-	docker rm $(DOCKER_CONTAINER)
-	docker rmi $(DOCKER_IMAGE);docker build -t $(DOCKER_IMAGE) .
-	docker run --name $(DOCKER_CONTAINER) -d -p 8000:5000 $(DOCKER_IMAGE):latests 
+	docker stop $(DOCKER_CONTAINER) || true
+	docker rm $(DOCKER_CONTAINER) || true
+	docker rmi $(DOCKER_IMAGE) || true
+	docker build -t $(DOCKER_IMAGE) .
+	docker run --name $(DOCKER_CONTAINER) -d -p 8000:5000 $(DOCKER_IMAGE):latest
