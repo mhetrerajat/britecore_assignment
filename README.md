@@ -50,7 +50,7 @@ REST API is now running on http://localhost:8000
 
 - [ ] Build a Data Pipeline/ETL process that takes the CSVs as input and saves into a database at a detailed level while also calculating summarized views. These summarized views could follow star schema or any other that you think will allow for easy querying using different pivots/dimensions. The Data Pipeline can be manually triggered by running a script (include instructions of how to do it!) or automated somehow.
 
-- [ ] Build an API that provides Detailed information using different parameters (like agency, month, year, state, etc), summarized information using different parameters (like agency, month, year, state, etc) and an XLS, XLSX or CSV report with Premium info by Agency and Product Line using date range as parameters
+- [ ] Build an API that provides detailed information using different parameters (like agency, month, year, state, etc), summarized information using different parameters (like agency, month, year, state, etc) and an XLS, XLSX or CSV report with Premium info by Agency and Product Line using date range as parameters
 
 - [ ] The Data Pipeline/ETL process and also the logic for generating the report must be done using Pandas
 
