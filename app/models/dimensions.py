@@ -5,7 +5,7 @@ class DimensionAgency(db.Model):
     __tablename__ = 'dimension_agency'
 
     id = db.Column(db.String, primary_key=True)
-    primary_agency = db.Column('primaryAgency',
+    primary_agency = db.Column('primary_agency',
                                db.String,
                                db.ForeignKey('dimension_agency.id'),
                                nullable=True)
