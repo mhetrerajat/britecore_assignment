@@ -47,7 +47,7 @@ class DetailAgency(Resource):
         app.logger.info(
             "Returing {0} agencies after applying filters : {1}".format(
                 df.shape[0], query))
-        
+
         df.fillna(value=0, inplace=True)
 
         response = {

@@ -27,6 +27,18 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 
+class DockerConfig(ProductionConfig):
+    @classmethod
+    def init_app(cls, app):
+        ProductionConfig.init_app(app)
+
+        import logging
+        from logging import StreamHandler
+        file_handler = StreamHandler()
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
 
@@ -39,5 +51,6 @@ config = {
     'development': DevelopmentConfig,
     'default': DevelopmentConfig,
     'production': ProductionConfig,
-    'test': TestConfig
+    'test': TestConfig,
+    'docker': DockerConfig
 }
