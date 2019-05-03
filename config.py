@@ -11,6 +11,7 @@ class Config(object):
     SQLALCHEMY_RECORD_QUERIES = True
     PROPAGATE_EXCEPTIONS = True
     DEBUG = True
+    DOWNLOADS_FOLDER = os.path.join(BASE_DIR, "downloads")
 
     @staticmethod
     def init_app(app):

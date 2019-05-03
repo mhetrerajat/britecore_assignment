@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app.exceptions import ApiException
 from config import config
+import os
 
 db = SQLAlchemy()
 auth = HTTPBasicAuth()
@@ -47,8 +48,9 @@ def create_app(config_name):
     summary_api.add_resource(SummaryResource, '/')
 
     # Report Resources
-    from app.resources.report import ReportResource
+    from app.resources.report import ReportResource, CSVReportResource
     report_api.add_resource(ReportResource, '/')
+    report_api.add_resource(CSVReportResource, '/csv')
 
     # Error Handler
     @app.errorhandler(ApiException)
