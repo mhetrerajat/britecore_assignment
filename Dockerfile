@@ -11,7 +11,7 @@ COPY . /app
 ENV SECRET_KEY="48tkMdPi-dPyIdqGtwGqYbG-argF699U1-H46XmEmU0="
 
 ENV FLASK_APP=run.py
-ENV FLASK_ENV=docker
+ENV FLASK_ENV=development
 
 ENV DEV_DATABASE_URL=sqlite:////tmp/britecore_dev.db
 ENV TEST_DATABASE_URL=sqlite:////tmp/britecore_test.db
