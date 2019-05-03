@@ -1,8 +1,8 @@
 import json
+import re
 
 from app.utils.url_builder import URLBuilder
 from tests.base import BaseTestCase
-import re
 
 url_builder = URLBuilder()
 
@@ -71,7 +71,7 @@ class ReportTestCases(BaseTestCase):
             'end_year': '2007'
         }
         response = get_report(self, params)
-        data = json.loads(response.data.decode())
+        json.loads(response.data.decode())
 
         self.assert400(response)
 

@@ -1,20 +1,13 @@
 import hashlib
 import json
+from csv import DictWriter
 from datetime import datetime
-import os
+from io import BytesIO, StringIO
 
-import numpy as np
-import pandas as pd
-from flask import Response
-from flask import current_app as app
-from flask import make_response
+from flask import send_file
 from flask.json import jsonify
 from flask_restful import Resource, marshal, reqparse
-from flask import send_file
-from csv import DictReader, DictWriter
-from io import StringIO, BytesIO
 
-from app import db
 from app.utils.report import ReportGenerator
 from app.utils.schema import ReportSchema
 

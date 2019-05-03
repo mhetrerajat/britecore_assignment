@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
-from app import db
 from flask import current_app as app
+
+from app import db
 
 
 class ReportGenerator(object):
@@ -16,7 +17,8 @@ class ReportGenerator(object):
             "Filtering rows from facts table based on date range -> {0} - {1}".
             format(self.request.start_year, self.request.end_year))
         df = df.query(
-            'date_id >= @self.request.start_year and date_id <= @self.request.end_year')
+            'date_id >= @self.request.start_year and date_id <= @self.request.end_year'
+        )
 
         # Filter out based on agency id
         if self.request.agency:
