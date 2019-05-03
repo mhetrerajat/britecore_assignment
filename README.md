@@ -67,13 +67,17 @@ REST API is now running on http://localhost:8000
 | GET    | /api/v1/detail/agency                    | Fetches detailed information about agencies. Support for filters.                                                        |
 | POST   | /api/v1/detail/agency                    | Create Agency                                                                                                            |
 | GET    | /api/v1/detail/agency/[string:agency_id] | Fetches detailed information about particular agency                                                                     |
+| GET    | /api/v1/summary/                         | Fetches summarized information. Supports filters and pagination.                                                         |
+|        |                                          |                                                                                                                          |
+|        |                                          |                                                                                                                          |
+|        |                                          |                                                                                                                          |
 
 #### Sample Requests
 
 - Says Hello
   
   ```bash
-  curl -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/'
+  curl -XGET 'http://localhost:8000/api/v1/'
   ```
 
 - Create user
@@ -83,40 +87,45 @@ REST API is now running on http://localhost:8000
    "username": "dummy",
    "password": "dummy"
   }' 'http://localhost:8000/api/v1/auth/register'
-  
   ```
 
 - Fetch detailed information about agency with id = 3
   
   ```bash
-  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency/3'
+  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency/3'
   ```
 
--  Fetch detailed information about all agencies 
+- Fetch detailed information about all agencies 
   
   ```bash
-  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency'
+  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency'
   ```
 
--   Fetched detailed information about agencies with filters
+- Fetched detailed information about agencies with filters
   
   ```bash
-  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency?agency_appointment_year=1957'
+  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency?agency_appointment_year=1957'
   ```
 
--   Create Agency
+- Create Agency
   
   ```bash
   curl -L -XPOST -H "Content-type: application/json" -d '{
-          'id': '999999',
-          'agency_appointment_year': 1957,
-          'active_producers': 14,
-          'max_age': 85,
-          'min_age': 48,
-          'vendor': 'Unknown',
-          'comissions_start_year': 2011,
-          'comissions_end_year': 2013
-      }' 'http://localhost:8000/api/v1/detail/agency/'
+        'id': '999999',
+        'agency_appointment_year': 1957,
+        'active_producers': 14,
+        'max_age': 85,
+        'min_age': 48,
+        'vendor': 'Unknown',
+        'comissions_start_year': 2011,
+        'comissions_end_year': 2013
+    }' 'http://localhost:8000/api/v1/detail/agency/'
+  ```
+
+-    Fetched summarized details
+  
+  ```bash
+  curl -L -XGET 'http://localhost:8000/api/v1/summary/'
   ```
 
 ### CLI
