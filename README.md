@@ -124,4 +124,7 @@ REST API is now running on http://localhost:8000
 ```bash
 # Create admin user
 flask initdb
+
+# Import data
+flask import <PATH_OF_CSV_FILE>
 ```
