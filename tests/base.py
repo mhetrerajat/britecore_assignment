@@ -21,7 +21,7 @@ class BaseTestCase(TestCase):
 
         # Add dummy data
         path = os.path.join(BASE_DIR, "sample_data.csv")
-        p = DataParser(path, sample_size=0.5, query={'AGENCY_ID': '3'})
+        p = DataParser(path, query={'AGENCY_ID': '3'})
         p.parse()
 
     def tearDown(self):
