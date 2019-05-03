@@ -31,3 +31,17 @@ SummarySchema = {
     'product_id': fields.String,
     'risk_state_id': fields.String
 }
+
+ReportSchema = {
+    'agency': fields.String(attribute='agency_id'),
+    'product_line': fields.String(attribute='line'),
+    'year': fields.String(attribute='date_id'),
+    'retention_policy_quantity': fields.Float,
+    'policy_inforce_quantity': fields.Float,
+    'new_business_in_written_premium': fields.Float,
+    'total_written_premium': fields.Float,
+    'earned_premium': fields.Float,
+    'incurred_losses': fields.Float,
+    'mean_retention_ratio': fields.Float,
+    'mean_loss_ratio': fields.Float
+}
