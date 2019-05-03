@@ -16,7 +16,7 @@ class DataParser(object):
 
     def _init_df(self, path):
         df = pd.read_csv(path)
-        df = df.replace(to_replace=['99999', 99999], value=None)
+        df.replace({key: None for key in [99999, '99999']}, inplace=True)
 
         # Filter out rows based on query parameter
         if self.query:
