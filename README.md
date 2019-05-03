@@ -116,7 +116,7 @@ REST API is now running on http://localhost:8000
           'vendor': 'Unknown',
           'comissions_start_year': 2011,
           'comissions_end_year': 2013
-      }' '/api/v1/detail/agency/'
+      }' 'http://localhost:8000/api/v1/detail/agency/'
   ```
 
 ### CLI
