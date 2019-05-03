@@ -68,9 +68,8 @@ REST API is now running on http://localhost:8000
 | POST   | /api/v1/detail/agency                    | Create Agency                                                                                                            |
 | GET    | /api/v1/detail/agency/[string:agency_id] | Fetches detailed information about particular agency                                                                     |
 | GET    | /api/v1/summary/                         | Fetches summarized information. Supports filters and pagination.                                                         |
-|        |                                          |                                                                                                                          |
-|        |                                          |                                                                                                                          |
-|        |                                          |                                                                                                                          |
+| GET    | /api/v1/report                           | Fetch report with premium info as JSON API                                                                               |
+| GET    | /api/v1/report/csv                       | Download report with premium information as CSV                                                                          |
 
 #### Sample Requests
 
@@ -126,6 +125,18 @@ REST API is now running on http://localhost:8000
   
   ```bash
   curl -L -XGET 'http://localhost:8000/api/v1/summary/'
+  ```
+
+-    Fetch report with JSON API
+  
+  ```bash
+  curl -L -XGET 'http://localhost:8000/api/v1/report?group_by=year&start_year=2005&end_year=2007'
+  ```
+
+-    Fetch report as CSV
+  
+  ```bash
+  curl -L -XGET 'http://localhost:8000/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007'
   ```
 
 ### CLI
