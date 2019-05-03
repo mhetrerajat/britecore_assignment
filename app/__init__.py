@@ -45,7 +45,6 @@ def create_app(config_name):
     from app.resources.summary import SummaryResource
     summary_api.add_resource(SummaryResource, '/')
 
-
     # Error Handler
     @app.errorhandler(ApiException)
     def handle_api_error(error):
