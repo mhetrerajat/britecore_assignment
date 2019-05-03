@@ -10,12 +10,12 @@ class DimensionAgency(db.Model):
                                db.ForeignKey('dimension_agency.id'),
                                nullable=True)
     active_producers = db.Column('active_producers', db.Integer)
-    agency_app_year = db.Column('agency_appointment_year', db.Integer)
+    agency_appointment_year = db.Column('agency_appointment_year', db.Integer)
     comissions_end_year = db.Column('comissions_end_year', db.Integer)
     comissions_start_year = db.Column('comissions_start_year', db.Integer)
     max_age = db.Column('max_age', db.Integer)
     min_age = db.Column('min_age', db.Integer)
-    vendor = db.Column(db.String(250))
+    vendor = db.Column(db.String(250), default="Unknown")
 
 
 class DimensionDate(db.Model):
