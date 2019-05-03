@@ -3,6 +3,7 @@
 """
 
 import os
+import click
 
 from dotenv import load_dotenv
 from config import BASE_DIR
@@ -15,6 +16,7 @@ if os.path.exists(dotenv_path):
 from flask_migrate import Migrate
 
 from app import create_app, db
+from app.utils.parser import DataParser
 
 app = create_app(os.getenv('FLASK_ENV') or 'default')
 app.app_context().push()
@@ -23,6 +25,9 @@ migrate = Migrate(app, db)
 
 @app.cli.command()
 def initdb():
+    """
+        Initialize the database with admin user
+    """
     from app.models import User
 
     # Create admin user
@@ -31,6 +36,16 @@ def initdb():
         user = User(username="admin", password="admin")
         db.session.add(user)
         db.session.commit()
+
+
+@app.cli.command(name="import")
+@click.argument("path")
+def import_data(path):
+    """
+        Imports data from csv file
+    """
+    p = DataParser(path)
+    p.parse()
 
 
 if __name__ == "__main__":
