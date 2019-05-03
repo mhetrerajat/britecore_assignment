@@ -1,8 +1,8 @@
 import pandas as pd
-from sqlalchemy.orm import sessionmaker
 
 from app import db
-from app.models import DimensionAgency
+from app.models import (DimensionAgency, DimensionDate, DimensionProduct,
+                        DimensionRiskState)
 
 
 class DataParser(object):
@@ -15,7 +15,7 @@ class DataParser(object):
         self.df = self._init_df(path)
 
     def _init_df(self, path):
-        df = pd.read_csv(path)
+        df = pd.read_csv(path, dtype={'AGENCY_ID': str})
         df.replace({key: None for key in [99999, '99999']}, inplace=True)
 
         # Filter out rows based on query parameter
@@ -29,19 +29,17 @@ class DataParser(object):
         return df
 
     def _bulk_write(self, df, model_class):
-        Session = sessionmaker(bind=db.engine)
-
         def insert(data):
-            session = Session()
-            session.bulk_save_objects(data, return_defaults=True)
-            session.commit()
-            session.close()
+            conn = db.engine.connect()
+            # TODO: This sytanx is specific to sqlite
+            conn.execute(
+                model_class.__table__.insert().prefix_with("OR REPLACE"), data)
 
         data = []
         BATCH_SIZE = 1000
         CURSOR = 0
         for _, row in df.iterrows():
-            data.append(model_class(**row))
+            data.append(dict(row))
             CURSOR += 1
 
             if CURSOR % BATCH_SIZE == 0 and CURSOR != 0 and data:
@@ -52,7 +50,7 @@ class DataParser(object):
         if data:
             insert(data)
 
-    def _process_agency(self):
+    def _transform_agency(self):
         df = self.df[[
             'AGENCY_ID', 'AGENCY_APPOINTMENT_YEAR', 'ACTIVE_PRODUCERS',
             'MAX_AGE', 'MIN_AGE', 'VENDOR', 'COMMISIONS_START_YEAR',
@@ -69,11 +67,29 @@ class DataParser(object):
                 'COMMISIONS_START_YEAR': 'comissions_start_year',
                 'COMMISIONS_END_YEAR': 'comissions_end_year'
             })
-        df = df.astype({
-            'id': str,
-        })
         df = df.drop_duplicates(subset=['id'])
         self._bulk_write(df, DimensionAgency)
 
+    def _transform_date(self):
+        df = self.df[['STAT_PROFILE_DATE_YEAR']]
+        df = df.rename(columns={'STAT_PROFILE_DATE_YEAR': 'id'})
+        df = df.drop_duplicates(subset=['id'])
+        self._bulk_write(df, DimensionDate)
+
+    def _transform_product(self):
+        df = self.df[['PROD_LINE', 'PROD_ABBR']]
+        df = df.rename(columns={'PROD_LINE': 'line', 'PROD_ABBR': 'id'})
+        df = df.drop_duplicates(subset=['id'])
+        self._bulk_write(df, DimensionProduct)
+
+    def _transform_risk_state(self):
+        df = self.df[['STATE_ABBR']]
+        df = df.rename(columns={'STATE_ABBR': 'id'})
+        df = df.drop_duplicates(subset=['id'])
+        self._bulk_write(df, DimensionRiskState)
+
     def parse(self):
-        self._process_agency()
+        self._transform_agency()
+        self._transform_date()
+        self._transform_product()
+        self._transform_risk_state()
