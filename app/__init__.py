@@ -24,6 +24,7 @@ def create_app(config_name):
 
     api = Api(app, prefix="/api/v1")
     auth_api = Api(app, prefix='/api/v1/auth')
+    detail_api = Api(app, prefix="/api/v1/detail")
 
     from app.resources.hello import Hello
     api.add_resource(Hello, '/')
@@ -31,6 +32,13 @@ def create_app(config_name):
     # Auth Resources
     from app.resources.register import Register
     auth_api.add_resource(Register, '/register')
+
+    # Detail Resources
+    from app.resources.detail_agency_item import DetailAgencyItem
+    detail_api.add_resource(DetailAgencyItem, '/agency/<string:agency_id>')
+
+    from app.resources.detail_agency import DetailAgency
+    detail_api.add_resource(DetailAgency, '/agency')
 
     # Error Handler
     @app.errorhandler(ApiException)
