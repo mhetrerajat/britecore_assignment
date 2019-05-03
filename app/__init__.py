@@ -25,6 +25,7 @@ def create_app(config_name):
     api = Api(app, prefix="/api/v1")
     auth_api = Api(app, prefix='/api/v1/auth')
     detail_api = Api(app, prefix="/api/v1/detail")
+    summary_api = Api(app, prefix="/api/v1/summary")
 
     from app.resources.hello import Hello
     api.add_resource(Hello, '/')
@@ -39,6 +40,11 @@ def create_app(config_name):
 
     from app.resources.detail_agency import DetailAgency
     detail_api.add_resource(DetailAgency, '/agency')
+
+    # Summary Resources
+    from app.resources.summary import SummaryResource
+    summary_api.add_resource(SummaryResource, '/')
+
 
     # Error Handler
     @app.errorhandler(ApiException)

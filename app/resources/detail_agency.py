@@ -53,7 +53,6 @@ class DetailAgency(Resource):
             'status': 'success',
             'message': None
         }
-        print(response)
         return jsonify(response)
 
     def post(self):

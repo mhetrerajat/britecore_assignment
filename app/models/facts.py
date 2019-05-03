@@ -6,7 +6,7 @@ class Facts(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     retention_policy_quantity = db.Column('retention_policy_quantity',
-                                          db.String)
+                                          db.Integer)
     policy_inforce_quantity = db.Column('policy_inforce_quantity', db.Integer)
     prev_policy_inforce_quantity = db.Column('prev_policy_inforce_quantity',
                                              db.Integer)
