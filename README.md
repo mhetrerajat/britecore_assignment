@@ -24,7 +24,7 @@ DATABASE_URL=sqlite:////tmp/britecore.db
 
 ### Get Started
 
--  Initialize environment
+- Initialize environment
   
   ```bash
   cd britecore_asssignment
@@ -32,13 +32,13 @@ DATABASE_URL=sqlite:////tmp/britecore.db
   pipenv install --dev
   ```
 
--  Build Docker Image
+- Build Docker Image
   
   ```bash
   docker build -t britecore_assignment .
   ```
 
--    Run Docker Container
+- Run Docker Container
   
   ```bash
   docker run --name britecore_api -d -p 8000:5000 britecore_assignment:latest
@@ -60,13 +60,13 @@ REST API is now running on http://localhost:8000
 
 ### Endpoints
 
-| Method | URL                   | Description                                                                                                              |
-| ------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| GET    | /api/v1/              | Says Hello                                                                                                               |
-| POST   | /api/v1/auth/register | This endpoint can be used to create user. These user credentails will be used to do Basic Auth with other API Endpoints. |
-|        |                       |                                                                                                                          |
-|        |                       |                                                                                                                          |
-|        |                       |                                                                                                                          |
+| Method | URL                                      | Description                                                                                                              |
+| ------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| GET    | /api/v1/                                 | Says Hello                                                                                                               |
+| POST   | /api/v1/auth/register                    | This endpoint can be used to create user. These user credentails will be used to do Basic Auth with other API Endpoints. |
+| GET    | /api/v1/detail/agency                    | Fetches detailed information about agencies. Support for filters.                                                        |
+| POST   | /api/v1/detail/agency                    | Create Agency                                                                                                            |
+| GET    | /api/v1/detail/agency/[string:agency_id] | Fetches detailed information about particular agency                                                                     |
 
 #### Sample Requests
 
@@ -76,13 +76,47 @@ REST API is now running on http://localhost:8000
   curl -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/'
   ```
 
--    Create user
+- Create user
   
   ```bash
   curl -XPOST -H "Content-type: application/json" -d '{
-      "username": "dummy",
-      "password": "dummy"
+   "username": "dummy",
+   "password": "dummy"
   }' 'http://localhost:8000/api/v1/auth/register'
+  
+  ```
+
+- Fetch detailed information about agency with id = 3
+  
+  ```bash
+  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency/3'
+  ```
+
+-  Fetch detailed information about all agencies 
+  
+  ```bash
+  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency'
+  ```
+
+-   Fetched detailed information about agencies with filters
+  
+  ```bash
+  curl -L -XGET -H "Content-type: application/json" 'http://localhost:8000/api/v1/detail/agency?agency_appointment_year=1957'
+  ```
+
+-   Create Agency
+  
+  ```bash
+  curl -L -XPOST -H "Content-type: application/json" -d '{
+          'id': '999999',
+          'agency_appointment_year': 1957,
+          'active_producers': 14,
+          'max_age': 85,
+          'min_age': 48,
+          'vendor': 'Unknown',
+          'comissions_start_year': 2011,
+          'comissions_end_year': 2013
+      }' '/api/v1/detail/agency/'
   ```
 
 ### CLI
@@ -91,5 +125,3 @@ REST API is now running on http://localhost:8000
 # Create admin user
 flask initdb
 ```
-
-
