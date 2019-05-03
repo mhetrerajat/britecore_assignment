@@ -1,3 +1,4 @@
+import logging
 import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -27,6 +28,10 @@ class ProductionConfig(Config):
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
+
+    @staticmethod
+    def init_app(app):
+        app.logger.setLevel(logging.INFO)
 
 
 config = {
