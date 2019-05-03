@@ -2,8 +2,7 @@ FROM python:3.7
 
 LABEL MAINTAINER="Rajat Mhetre <mhetrerajat@gmail.com>"
 
-RUN adduser -D api_user
-USER api_user
+RUN groupadd -r api_group && useradd -r -g api_group api_user
 
 WORKDIR /app
 
