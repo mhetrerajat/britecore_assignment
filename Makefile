@@ -27,6 +27,11 @@ test:
 requirements:
 	$(PYTHON) -m pip freeze > requirements.txt
 
+deploy:
+	heroku git:remote -a britecore-assignment
+	heroku stack:set container --app britecore-assignment
+	git push heroku master
+
 testdeploy:
 	docker stop $(DOCKER_CONTAINER) || true
 	docker rm $(DOCKER_CONTAINER) || true
