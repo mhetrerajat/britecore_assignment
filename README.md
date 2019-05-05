@@ -2,6 +2,10 @@
 
 Britecore Data Engineerning Assignment
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](http://britecore-assignment.herokuapp.com/)
+
+Deployed on Heroku : http://britecore-assignment.herokuapp.com/
+
 ### Requirements
 
 - Python 3.7
@@ -41,7 +45,7 @@ DATABASE_URL=sqlite:////tmp/britecore.db
 - Run Docker Container
   
   ```bash
-  docker run --name britecore_api -d -p 8000:5000 britecore_assignment:latest
+  docker run --name britecore_api -d -e PORT=5000 -p 8000:5000 britecore_assignment:latest
   ```
 
 REST API is now running on http://localhost:8000
@@ -76,7 +80,7 @@ REST API is now running on http://localhost:8000
 - Says Hello
   
   ```bash
-  curl -XGET 'http://localhost:8000/api/v1/'
+  curl -XGET 'http://britecore-assignment.herokuapp.com/api/v1/'
   ```
 
 - Create user
@@ -85,25 +89,25 @@ REST API is now running on http://localhost:8000
   curl -XPOST -H "Content-type: application/json" -d '{
    "username": "dummy",
    "password": "dummy"
-  }' 'http://localhost:8000/api/v1/auth/register'
+  }' 'http://britecore-assignment.herokuapp.com/api/v1/auth/register'
   ```
 
 - Fetch detailed information about agency with id = 3
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency/3'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency/3'
   ```
 
 - Fetch detailed information about all agencies 
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency'
   ```
 
 - Fetched detailed information about agencies with filters
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/detail/agency?agency_appointment_year=1957'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency?agency_appointment_year=1957'
   ```
 
 - Create Agency
@@ -118,25 +122,25 @@ REST API is now running on http://localhost:8000
         'vendor': 'Unknown',
         'comissions_start_year': 2011,
         'comissions_end_year': 2013
-    }' 'http://localhost:8000/api/v1/detail/agency/'
+    }' 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency/'
   ```
 
--    Fetched summarized details
+- Fetched summarized details
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/summary/'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/summary/'
   ```
 
--    Fetch report with JSON API
+- Fetch report with JSON API
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/report?group_by=year&start_year=2005&end_year=2007'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report?group_by=year&start_year=2005&end_year=2007'
   ```
 
--    Fetch report as CSV
+- Fetch report as CSV
   
   ```bash
-  curl -L -XGET 'http://localhost:8000/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007'
   ```
 
 ### CLI
