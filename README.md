@@ -52,15 +52,23 @@ REST API is now running on http://localhost:8000
 
 ### Tasks
 
-- [ ] Build a Data Pipeline/ETL process that takes the CSVs as input and saves into a database at a detailed level while also calculating summarized views. These summarized views could follow star schema or any other that you think will allow for easy querying using different pivots/dimensions. The Data Pipeline can be manually triggered by running a script (include instructions of how to do it!) or automated somehow.
+- [x] Build a Data Pipeline/ETL process that takes the CSVs as input and saves into a database at a detailed level while also calculating summarized views. These summarized views could follow star schema or any other that you think will allow for easy querying using different pivots/dimensions. The Data Pipeline can be manually triggered by running a script (include instructions of how to do it!) or automated somehow.  
 
-- [ ] Build an API that provides detailed information using different parameters (like agency, month, year, state, etc), summarized information using different parameters (like agency, month, year, state, etc) and an XLS, XLSX or CSV report with Premium info by Agency and Product Line using date range as parameters
+- [x] Build an API that provides detailed information using different parameters (like agency, month, year, state, etc), summarized information using different parameters (like agency, month, year, state, etc) and an XLS, XLSX or CSV report with Premium info by Agency and Product Line using date range as parameters
 
-- [ ] The Data Pipeline/ETL process and also the logic for generating the report must be done using Pandas
+- [x] The Data Pipeline/ETL process and also the logic for generating the report must be done using Pandas
 
-- [ ] Integration or Unit tests
+- [x] Integration or Unit tests
 
 - [ ] Authentication so that only authorized users can query the API
+
+- [x] Using docker for deployment
+
+- [x] Incremental ETL that only processes and loads new records
+
+- [x] Build a web app that consumes the API to show Premium info by Product Line using date range as parameters.
+
+- [ ] Documented code and that follows pep8 and The Zen of Python
 
 ### Endpoints
 
@@ -75,6 +83,7 @@ REST API is now running on http://localhost:8000
 | GET    | /api/v1/report                           | Fetch report with premium info as JSON API                                                                               |
 | GET    | /api/v1/report/csv                       | Download report with premium information as CSV                                                                          |
 | GET    | /                                        | Dashboard                                                                                                                |
+| GET    | /api/v1/distinct                         | Fetches distinct values for year, agency and product line.                                                               |
 
 #### Sample Requests
 
@@ -142,6 +151,12 @@ REST API is now running on http://localhost:8000
   
   ```bash
   curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007'
+  ```
+
+-    Fetch distinct values
+  
+  ```bash
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/'
   ```
 
 ### CLI
