@@ -8,3 +8,12 @@
 # python object code
 **/*.pyc
 __pycache__
+
+# js
+node_modules
+package-lock.json
+
+# Test files
+test.log
+test.sh
+
