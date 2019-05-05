@@ -18,12 +18,12 @@ from flask_migrate import Migrate
 from app import create_app, db
 from app.utils.parser import DataParser
 
-app = create_app(os.getenv('FLASK_ENV') or 'default')
-app.app_context().push()
-migrate = Migrate(app, db)
+application = create_app(os.getenv('FLASK_ENV') or 'default')
+application.app_context().push()
+migrate = Migrate(application, db)
 
 
-@app.cli.command()
+@application.cli.command()
 def initdb():
     """
         Initialize the database with admin user
@@ -38,7 +38,7 @@ def initdb():
         db.session.commit()
 
 
-@app.cli.command(name="import")
+@application.cli.command(name="import")
 @click.argument("path")
 def import_data(path):
     """
@@ -49,4 +49,4 @@ def import_data(path):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    application.run(host='0.0.0.0')
