@@ -74,6 +74,7 @@ REST API is now running on http://localhost:8000
 | GET    | /api/v1/summary/                         | Fetches summarized information. Supports filters and pagination.                                                         |
 | GET    | /api/v1/report                           | Fetch report with premium info as JSON API                                                                               |
 | GET    | /api/v1/report/csv                       | Download report with premium information as CSV                                                                          |
+| GET    | /                                        | Dashboard                                                                                                                |
 
 #### Sample Requests
 
