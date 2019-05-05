@@ -35,8 +35,9 @@ def create_app(config_name):
     from app.resources.dashboard import DashboardResource
     dashboard.add_resource(DashboardResource, '/')
 
-    from app.resources.hello import Hello
+    from app.resources.hello import Hello, DistinctResource
     api.add_resource(Hello, '/')
+    api.add_resource(DistinctResource, '/distinct')
 
     # Auth Resources
     from app.resources.register import Register
