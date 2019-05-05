@@ -24,11 +24,16 @@ def create_app(config_name):
 
     db.init_app(app)
 
+    dashboard = Api(app, prefix="/")
     api = Api(app, prefix="/api/v1")
     auth_api = Api(app, prefix='/api/v1/auth')
     detail_api = Api(app, prefix="/api/v1/detail")
     summary_api = Api(app, prefix="/api/v1/summary")
     report_api = Api(app, prefix="/api/v1/report")
+
+    # Dashboard Resource
+    from app.resources.dashboard import DashboardResource
+    dashboard.add_resource(DashboardResource, '/')
 
     from app.resources.hello import Hello
     api.add_resource(Hello, '/')
