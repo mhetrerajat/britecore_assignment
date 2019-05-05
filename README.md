@@ -156,7 +156,7 @@ REST API is now running on http://localhost:8000
 -    Fetch distinct values
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/'
+  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/distinct'
   ```
 
 ### CLI
