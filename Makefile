@@ -4,6 +4,7 @@ PYTHON=pipenv run python
 PROJECT_HOME?=.
 DOCKER_IMAGE=britecore_assignment
 DOCKER_CONTAINER=britecore_api
+HEROKU_APP_NAME=britecore-assignment
 
 .DEFAULT: help
 
@@ -37,4 +38,19 @@ testdeploy:
 	docker rm $(DOCKER_CONTAINER) || true
 	docker rmi $(DOCKER_IMAGE) || true
 	docker build -t $(DOCKER_IMAGE) .
-	docker run --name $(DOCKER_CONTAINER) -d -p 8000:5000 $(DOCKER_IMAGE):latest
+	docker run --name $(DOCKER_CONTAINER) -d -e PORT=5000 -p 8000:5000 $(DOCKER_IMAGE):latest
+
+deploy:
+	heroku container:push web --app $(HEROKU_APP_NAME)
+	heroku container:release web --app $(HEROKU_APP_NAME)
+	heroku open --app $(HEROKU_APP_NAME)
+
+logs:
+	heroku logs --tail --app $(HEROKU_APP_NAME)
+
+login:
+	heroku run bash --app $(HEROKU_APP_NAME)
+
+clean:
+	docker images -q |xargs docker rmi
+	docker ps -q |xargs docker rm
