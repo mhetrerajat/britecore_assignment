@@ -13,7 +13,11 @@ help:
 	@echo "make pretty - Does linting and deletes *.pyc files"
 	@echo "make requirements - Makes requirements.txt"
 	@echo "make testdeploy - Build and deploy docker container"
-
+	@echo "make deploy - Deploy to Heroku"
+	@echo "make logs - Print tail of Heroku Logs"
+	@echo "make login - Logins to command prompt in docker container running on Heroku"
+	@echo "make clean - Deletes unused docker images and containers"
+	@echo "make report - Generates code coverage report"
 
 pretty:
 	find . -name '*.pyc' -delete
@@ -49,3 +53,9 @@ login:
 clean:
 	docker images -q |xargs docker rmi
 	docker ps -q |xargs docker rm
+report:
+	$(PYTHON) -m coverage run --include=app/* --omit=tests/*,config.py -m unittest discover --start-directory=tests
+	$(PYTHON) -m coverage report 
+	$(PYTHON) -m coverage html
+	$(PYTHON) -m coverage-badge -o coverage.svg
+	open htmlcov/index.html

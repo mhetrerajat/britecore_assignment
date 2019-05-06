@@ -1,6 +1,8 @@
 import json
 
 from app import db
+from app.exceptions import (RequirementParameterMissing,
+                            UserAlreadyExistsException)
 from app.models import User
 from tests.base import BaseTestCase
 
@@ -22,6 +24,7 @@ class AuthResourcesTestCase(BaseTestCase):
             response = self.register_user('admin', 'admin')
             data = json.loads(response.data.decode())
 
+            self.assertRaises(UserAlreadyExistsException)
             self.assert400(response)
             self.assertEqual(data.get('status'), 'failed')
 
@@ -30,5 +33,6 @@ class AuthResourcesTestCase(BaseTestCase):
             response = self.register_user(None, 'admin')
             data = json.loads(response.data.decode())
 
+            self.assertRaises(RequirementParameterMissing)
             self.assert400(response)
             self.assertEqual(data.get('status'), 'failed')

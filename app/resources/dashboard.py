@@ -8,9 +8,6 @@ class DashboardResource(Resource):
 
     decorators = [auth.login_required]
 
-    def __init__(self):
-        pass
-
     def get(self):
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('index.html'), 200, headers)

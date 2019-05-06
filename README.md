@@ -6,6 +6,8 @@ Britecore Data Engineerning Assignment
 
 Deployed on Heroku : http://britecore-assignment.herokuapp.com/
 
+![Code Coverage](coverage.svg)
+
 ### Requirements
 
 - Python 3.7
@@ -67,6 +69,8 @@ REST API is now running on http://localhost:8000
 - [x] Incremental ETL that only loads new records
 
 - [x] Build a web app that consumes the API to show Premium info by Product Line using date range as parameters.
+
+- [x] Tests with good test coverage
 
 - [ ] Documented code and that follows pep8 and The Zen of Python
 
