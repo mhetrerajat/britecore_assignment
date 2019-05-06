@@ -5,7 +5,7 @@ import LoadingComponent from "../components/LoadingComponent";
 import ErrorComponent from "../components/ErrorComponent";
 import NavBar from "../components/NavBar";
 
-import { getSummary, fetchDistinctValues } from "../utils";
+import { getSummary, fetchDistinctValues, fetchInitState } from "../utils";
 
 import { gt } from "lodash";
 
@@ -30,12 +30,13 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    fetchDistinctValues(this);
+    //fetchDistinctValues(this);
   }
 
   componentDidMount() {
     let { startYear, endYear } = this.state;
-    getSummary(this, startYear, endYear);
+    //getSummary(this, startYear, endYear);
+    fetchInitState(this, startYear, endYear);
   }
 
   onChangeStartYear(event) {

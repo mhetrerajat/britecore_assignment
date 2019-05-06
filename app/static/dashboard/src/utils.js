@@ -1,6 +1,8 @@
 import axios from "axios";
 import { keyBy, groupBy, forEach, round, uniq, gt } from "lodash";
 
+import API from "./api";
+
 function cleanSummaryData(data) {
   let groupedByYear = groupBy(data, function(item) {
     return item.year;
@@ -28,15 +30,53 @@ function cleanSummaryData(data) {
   return { result, productLines, years };
 }
 
-export function getSummary(_this, startYear, endYear) {
-  const apiURL =
-    "/api/v1/report/?group_by=year&group_by=product_line&start_year=" +
-    startYear +
-    "&end_year=" +
-    endYear;
-  _this.setState({ isLoading: true });
+let stateHandler = {
+  setLoadingState: function(_this, loadingState) {
+    _this.setState({ isLoading: loadingState });
+  },
+  setErrorState: function(_this, errorState, errorMessage) {
+    _this.setState({
+      isError: errorState,
+      errorMessage: errorMessage
+    });
+  }
+};
+
+export function fetchInitState(_this, startYear, endYear) {
+  stateHandler.setLoadingState(_this, true);
   axios
-    .get(apiURL)
+    .all([API.getReport(startYear, endYear), API.fetchDistinctValues()])
+    .then(
+      axios.spread(function(reportResponse, distinctResponse) {
+        return {
+          reportData: reportResponse.data.data,
+          distinctData: distinctResponse.data.data
+        };
+      })
+    )
+    .then(function({ reportData, distinctData }) {
+      let { result, productLines, years } = cleanSummaryData(reportData);
+      _this.setState({
+        data: result,
+        product_lines: productLines,
+        years: years,
+        startYear: startYear,
+        endYear: endYear,
+        distincts: distinctData
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+      stateHandler.setErrorState(_this, true, err);
+    })
+    .finally(function() {
+      stateHandler.setLoadingState(_this, false);
+    });
+}
+
+export function getSummary(_this, startYear, endYear) {
+  stateHandler.setLoadingState(_this, true);
+  API.getReport(startYear, endYear)
     .then(response => {
       let { result, productLines, years } = cleanSummaryData(
         response.data.data
@@ -51,32 +91,9 @@ export function getSummary(_this, startYear, endYear) {
     })
     .catch(function(error) {
       console.log(error);
-      _this.setState({
-        isError: true,
-        errorMessage: error
-      });
+      stateHandler.setErrorState(_this, true, error);
     })
     .finally(function() {
-      _this.setState({
-        isLoading: false
-      });
-    });
-}
-
-export function fetchDistinctValues(_this) {
-  const apiURL = "/api/v1/distinct";
-  axios
-    .get(apiURL)
-    .then(response => {
-      _this.setState({
-        distincts: response.data.data
-      });
-    })
-    .catch(function(error) {
-      console.log(error);
-      _this.setState({
-        isError: true,
-        errorMessage: error
-      });
+      stateHandler.setLoadingState(_this, false);
     });
 }
