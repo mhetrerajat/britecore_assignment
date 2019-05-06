@@ -6,10 +6,22 @@ from app import db
 
 
 class ReportGenerator(object):
+    """This class implements the report generator.
+    
+    :param request_args: All the parameters passed in request
+    :type request_args: dict
+    """
+
     def __init__(self, request_args):
         self.request = request_args
 
     def generate(self):
+        """This method generates report by applying filters and performing
+        aggregates and group by mentioned in request
+        
+        :return: Report
+        :rtype: pd.DataFrame
+        """
         df = pd.read_sql_table('facts', db.engine)
 
         # Filter out rows based on start_date and end_date

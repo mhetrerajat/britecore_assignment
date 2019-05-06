@@ -9,6 +9,9 @@ from app.models import User
 
 
 class Register(Resource):
+    """This class implements methods to create new user which will eventually used in HTTP Basic Auth
+    """
+
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('username',
@@ -25,6 +28,11 @@ class Register(Resource):
         super(Register, self).__init__()
 
     def post(self):
+        """This method creates new user using parameters given in request
+
+        :raises RequirementParameterMissing: When any required parameters are missing in request
+        :raises UserAlreadyExistsException: When another user exists with same username
+        """
         args = self.reqparse.parse_args()
 
         if any([not args.username, not args.password]):

@@ -12,6 +12,8 @@ autoflake = "*"
 flask-testing = "*"
 coverage = "*"
 coverage-badge = "*"
+sphinx = "*"
+sphinxcontrib-httpdomain = "*"
 
 [packages]
 flask-restful = "*"

@@ -9,15 +9,22 @@ from app.utils.schema import AgencySchema
 
 
 class DetailAgencyItem(Resource):
+    """This class implements all methods associated with agencies. All routes in this resource
+    requires HTTP Basic Auth
+    """
     decorators = [auth.login_required]
 
     def __init__(self):
+        #: Parsed request in key value format
         self.reqparse = reqparse.RequestParser()
         super(DetailAgencyItem, self).__init__()
 
     def get(self, agency_id):
-        """
-            Fetches all the information about the agency
+        """Fetches all the information about the agency
+        
+        :param agency_id: Unique id of an agency
+        :type agency_id: str
+        :raises ApiException: When agency id is invalid or missing in the request
         """
         agency = DimensionAgency.query.filter_by(id=agency_id).first()
 

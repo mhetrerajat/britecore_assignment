@@ -16,11 +16,13 @@ class Hello(Resource):
 
 
 class DistinctResource(Resource):
+    """This class implements methods to fetch distinct values of various columns in facts table.
+    All routes requires HTTP Basic Auth
+    """
     decorators = [auth.login_required]
 
     def get(self):
-        """
-            Fetches all the unique values for date, agency and product line columns
+        """Fetches all the unique values for date, agency and product line columns
         """
         data = {
             'date_id':

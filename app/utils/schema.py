@@ -1,3 +1,13 @@
+"""This module implements various schemas which will be used to marshal the complex objects
+at the time of generating response. These schemas act as filter to limit attributes that to be
+shown in response and validates their data types.
+
+- Schemas
+    -   AgencySchema : Used in agency specific resources
+    -   SummarySchema: Used for limiting the number of attributes in response of all resources associated with facts table
+    -   ReportSchema: Used in case of report resources
+"""
+
 from flask_restful import fields
 
 AgencySchema = {

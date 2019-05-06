@@ -8,6 +8,9 @@ from app.utils.schema import SummarySchema
 
 
 class SummaryResource(Resource):
+    """This class implements API to filter out information from facts table based on various
+    attributes.
+    """
     decorators = [auth.login_required]
 
     def __init__(self):

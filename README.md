@@ -6,6 +6,7 @@ Britecore Data Engineerning Assignment
 
 Deployed on Heroku : http://britecore-assignment.herokuapp.com/
 
+![Python](https://img.shields.io/badge/python-3.7-blue.svg)
 ![Code Coverage](coverage.svg)
 
 ### Requirements

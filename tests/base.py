@@ -1,7 +1,7 @@
 import base64
 import json
 import os
-from random import randint
+from datetime import datetime
 
 from flask_testing import TestCase
 
@@ -65,8 +65,9 @@ class BaseTestCase(TestCase):
             url, headers={'Authorization': self.get_basic_auth_token()})
 
     def create_agency(self, id_missing=False):
+        agency_id = datetime.utcnow().strftime('%Y%m%d%H%M%S')
         data = {
-            'id': str(randint(5000, 10000)) if not id_missing else None,
+            'id': agency_id if not id_missing else None,
             'agency_appointment_year': 1957,
             'active_producers': 14,
             'max_age': 85,

@@ -14,6 +14,8 @@ from app.utils.schema import ReportSchema
 
 
 class BaseReportResource(Resource):
+    """This is base class for Report Generation routes
+    """
     decorators = [auth.login_required]
 
     def __init__(self):
@@ -37,8 +39,7 @@ class BaseReportResource(Resource):
 
 class ReportResource(BaseReportResource):
     def get(self):
-        """
-            Generates reports based on parameters
+        """Generates reports based on parameters
         """
         args = self.reqparse.parse_args()
 
@@ -55,8 +56,7 @@ class ReportResource(BaseReportResource):
 
 class CSVReportResource(BaseReportResource):
     def get(self):
-        """
-            Generate CSV report with premium information
+        """Generate CSV report with premium information
         """
         args = self.reqparse.parse_args()
 

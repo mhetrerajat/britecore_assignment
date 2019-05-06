@@ -1,4 +1,8 @@
 class URLBuilder(object):
+    """This class implements url builder. It generates URL based on params and base url
+    given in parameter
+    """
+
     def __init__(self, **kwargs):
         pass
 
@@ -14,6 +18,19 @@ class URLBuilder(object):
         return base_url
 
     def build(self, base_url, params=None, offset=None, limit=None):
+        """This method builds url using all parameters
+        
+        :param base_url: Base URL
+        :type base_url: str
+        :param params: The key value pair of all the parameters that to be added in request, defaults to None
+        :type params: dict, optional
+        :param offset: Offset , defaults to None
+        :type offset: int, optional
+        :param limit: Limit the number of records to return, defaults to None
+        :type limit: int, optional
+        :return: URL
+        :rtype: str
+        """
         if any([params, offset, limit]):
             base_url += "?"
 

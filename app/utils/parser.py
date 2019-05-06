@@ -8,6 +8,19 @@ from app.models import (DimensionAgency, DimensionDate, DimensionProduct,
 
 
 class DataParser(object):
+    """This class implements CSV data parser. It first cleans the data and then extract
+    information from file. The extracted information is then transformed into various 
+    entities to load it into database by performing certain checks and validations
+    
+    :param path: Path of the csv file
+    :type path: str
+    :param sample_size: The ratio of rows to be choosen from actual file. 
+    Default value is 1 i.e it loads entire data of file
+    :type sample_size: float
+    :param query: Query to filter out data from file.
+    :type query: dict
+    """
+
     def __init__(self, path, sample_size=1, query=None, **kwargs):
         self.path = path
         self.sample_size = sample_size
@@ -38,6 +51,14 @@ class DataParser(object):
         return df
 
     def _bulk_write(self, df, model_class):
+        """This method loads data into database in chunks of size 1000
+        
+        :param df: Dataframe containing transformed data
+        :type df: pd.DataFrame
+        :param model_class: Model of the table in which this data is to load
+        :type model_class: db.Model
+        """
+
         def insert(data):
             conn = db.engine.connect()
             # TODO: This sytanx is specific to sqlite
@@ -62,6 +83,8 @@ class DataParser(object):
         app.logger.debug("Number of rows inserted : {0}".format(df.shape[0]))
 
     def _transform_agency(self):
+        """Transform the data from file to store agency specific informatiom in dimension_agency table
+        """
         app.logger.debug("Processing data for agency data")
         df = self.df[[
             'AGENCY_ID', 'AGENCY_APPOINTMENT_YEAR', 'ACTIVE_PRODUCERS',
@@ -83,6 +106,8 @@ class DataParser(object):
         self._bulk_write(df, DimensionAgency)
 
     def _transform_date(self):
+        """Transform the data from file to store date specific informatiom in dimension_date table
+        """
         app.logger.debug("Processing data for date data")
         df = self.df[['STAT_PROFILE_DATE_YEAR']]
         df = df.rename(columns={'STAT_PROFILE_DATE_YEAR': 'id'})
@@ -90,6 +115,8 @@ class DataParser(object):
         self._bulk_write(df, DimensionDate)
 
     def _transform_product(self):
+        """Transform the data from file to store product specific informatiom in dimension_product table
+        """
         app.logger.debug("Processing data for product data")
         df = self.df[['PROD_LINE', 'PROD_ABBR']]
         df = df.rename(columns={'PROD_LINE': 'line', 'PROD_ABBR': 'id'})
@@ -97,6 +124,8 @@ class DataParser(object):
         self._bulk_write(df, DimensionProduct)
 
     def _transform_risk_state(self):
+        """Transform the data from file to store risk state specific informatiom table
+        """
         app.logger.debug("Processing data for risk state data")
         df = self.df[['STATE_ABBR']]
         df = df.rename(columns={'STATE_ABBR': 'id'})
@@ -104,6 +133,8 @@ class DataParser(object):
         self._bulk_write(df, DimensionRiskState)
 
     def _transform_summary(self):
+        """Transform the data from file to store in facts table
+        """
         app.logger.debug("Processing to get summarized data")
         bound_q = [
             'CL_BOUND_CT_MDS', 'CL_BOUND_CT_SBZ', 'CL_BOUND_CT_eQT',
@@ -189,6 +220,8 @@ class DataParser(object):
         self._bulk_write(summary, Facts)
 
     def parse(self):
+        """This method underneath calls all transformations that to be run on data
+        """
         self._transform_agency()
         self._transform_date()
         self._transform_product()
