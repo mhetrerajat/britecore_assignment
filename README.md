@@ -85,7 +85,7 @@ REST API is now running on http://localhost:8000
 | POST   | /api/v1/detail/agency                    | Create Agency                                                                                                            |
 | GET    | /api/v1/detail/agency/[string:agency_id] | Fetches detailed information about particular agency                                                                     |
 | GET    | /api/v1/summary/                         | Fetches summarized information. Supports filters and pagination.                                                         |
-| GET    | /api/v1/report                           | Fetch report with premium info as JSON API                                                                               |
+| GET    | /api/v1/report/                           | Fetch report with premium info as JSON API                                                                               |
 | GET    | /api/v1/report/csv                       | Download report with premium information as CSV                                                                          |
 | GET    | /                                        | Dashboard                                                                                                                |
 | GET    | /api/v1/distinct                         | Fetches distinct values for year, agency and product line.                                                               |
@@ -149,7 +149,7 @@ REST API is now running on http://localhost:8000
 - Fetch report with JSON API
   
   ```bash
-  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/report?group_by=year&start_year=2005&end_year=2007"
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/report/?group_by=year&start_year=2005&end_year=2007"
   ```
 
 - Fetch report as CSV
