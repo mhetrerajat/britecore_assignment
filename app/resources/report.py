@@ -8,11 +8,14 @@ from flask import send_file
 from flask.json import jsonify
 from flask_restful import Resource, marshal, reqparse
 
+from app import auth
 from app.utils.report import ReportGenerator
 from app.utils.schema import ReportSchema
 
 
 class BaseReportResource(Resource):
+    decorators = [auth.login_required]
+
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('group_by',

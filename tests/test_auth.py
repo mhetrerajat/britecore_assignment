@@ -5,18 +5,9 @@ from app.models import User
 from tests.base import BaseTestCase
 
 
-def register_user(self, username, password):
-    return self.client.post('/api/v1/auth/register',
-                            data=json.dumps({
-                                'username': username,
-                                'password': password
-                            }),
-                            content_type='application/json')
-
-
 class AuthResourcesTestCase(BaseTestCase):
     def test_registration(self):
-        response = register_user(self, 'admin', 'admin')
+        response = self.register_user('admin', 'admin')
         data = json.loads(response.data.decode())
 
         self.assertEqual(data.get('status'), 'success')
@@ -28,7 +19,7 @@ class AuthResourcesTestCase(BaseTestCase):
         db.session.commit()
 
         with self.client:
-            response = register_user(self, 'admin', 'admin')
+            response = self.register_user('admin', 'admin')
             data = json.loads(response.data.decode())
 
             self.assert400(response)
@@ -36,7 +27,7 @@ class AuthResourcesTestCase(BaseTestCase):
 
     def test_missing_params(self):
         with self.client:
-            response = register_user(self, None, 'admin')
+            response = self.register_user(None, 'admin')
             data = json.loads(response.data.decode())
 
             self.assert400(response)

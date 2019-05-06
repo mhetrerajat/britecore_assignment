@@ -2,12 +2,15 @@ from flask import current_app as app
 from flask.json import jsonify
 from flask_restful import Resource, marshal, reqparse
 
+from app import auth
 from app.exceptions import ApiException
 from app.models import DimensionAgency
 from app.utils.schema import AgencySchema
 
 
 class DetailAgencyItem(Resource):
+    decorators = [auth.login_required]
+
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         super(DetailAgencyItem, self).__init__()

@@ -60,11 +60,11 @@ REST API is now running on http://localhost:8000
 
 - [x] Integration or Unit tests
 
-- [ ] Authentication so that only authorized users can query the API
+- [x] Authentication so that only authorized users can query the API
 
 - [x] Using docker for deployment
 
-- [x] Incremental ETL that only processes and loads new records
+- [x] Incremental ETL that only loads new records
 
 - [x] Build a web app that consumes the API to show Premium info by Product Line using date range as parameters.
 
@@ -90,7 +90,7 @@ REST API is now running on http://localhost:8000
 - Says Hello
   
   ```bash
-  curl -XGET 'http://britecore-assignment.herokuapp.com/api/v1/'
+  curl -XGET 'http://s/api/v1/'
   ```
 
 - Create user
@@ -105,58 +105,58 @@ REST API is now running on http://localhost:8000
 - Fetch detailed information about agency with id = 3
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency/3'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/detail/agency/3"
   ```
 
 - Fetch detailed information about all agencies 
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/detail/agency"
   ```
 
 - Fetched detailed information about agencies with filters
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency?agency_appointment_year=1957'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/detail/agency?agency_appointment_year=1957"
   ```
 
 - Create Agency
   
   ```bash
-  curl -L -XPOST -H "Content-type: application/json" -d '{
-        'id': '999999',
-        'agency_appointment_year': 1957,
-        'active_producers': 14,
-        'max_age': 85,
-        'min_age': 48,
-        'vendor': 'Unknown',
-        'comissions_start_year': 2011,
-        'comissions_end_year': 2013
-    }' 'http://britecore-assignment.herokuapp.com/api/v1/detail/agency/'
+  curl -u admin:admin -L -XPOST -H "Content-type: application/json" -d '{
+          "id": "999999",
+          "agency_appointment_year": 1957,
+          "active_producers": 14,
+          "max_age": 85,
+          "min_age": 48,
+          "vendor": "Unknown",
+          "comissions_start_year": 2011,
+          "comissions_end_year": 2013
+      }' "http://britecore-assignment.herokuapp.com/api/v1/detail/agency"
   ```
 
 - Fetched summarized details
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/summary/'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/summary/"
   ```
 
 - Fetch report with JSON API
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report?group_by=year&start_year=2005&end_year=2007'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/report?group_by=year&start_year=2005&end_year=2007"
   ```
 
 - Fetch report as CSV
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/report/csv?group_by=year&start_year=2005&end_year=2007"
   ```
 
--    Fetch distinct values
+- Fetch distinct values
   
   ```bash
-  curl -L -XGET 'http://britecore-assignment.herokuapp.com/api/v1/report/'
+  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/distinct"
   ```
 
 ### CLI

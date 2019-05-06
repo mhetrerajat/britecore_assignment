@@ -1,10 +1,9 @@
+import numpy as np
 from flask.json import jsonify
 from flask_restful import Resource
 
-import pandas as pd
-from app import db
-from app.models import Facts, DimensionProduct
-import numpy as np
+from app import auth
+from app.models import DimensionProduct, Facts
 
 
 class Hello(Resource):
@@ -17,6 +16,8 @@ class Hello(Resource):
 
 
 class DistinctResource(Resource):
+    decorators = [auth.login_required]
+
     def get(self):
         """
             Fetches all the unique values for date, agency and product line columns

@@ -3,11 +3,13 @@ from flask import current_app as app
 from flask.json import jsonify
 from flask_restful import Resource, marshal, reqparse
 
-from app import db
+from app import auth, db
 from app.utils.schema import SummarySchema
 
 
 class SummaryResource(Resource):
+    decorators = [auth.login_required]
+
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('agency',
