@@ -7,7 +7,38 @@ from app.models import DimensionProduct, Facts
 
 
 class Hello(Resource):
+    """Introduction"""
+
     def get(self):
+        """Says Hello
+
+        .. :quickref: Introduction
+
+        **Example request**:
+
+        .. http:example:: curl wget httpie python-requests
+
+          GET /api/v1/ HTTP/1.1
+          Host: britecore-assignment.herokuapp.com
+          Accept: application/json
+
+        **Example response**:
+
+        .. sourcecode:: http
+
+          HTTP/1.1 200 OK
+          Vary: Accept
+          Content-Type: application/json
+
+          {
+            "data": null,
+            "message": "Hello! Britecore Data Engineer Assignment",
+            "status": "success"
+          }
+
+        :resheader Content-Type: application/json
+        :status 200: Say Hello
+        """
         return jsonify({
             'data': None,
             'message': 'Hello! Britecore Data Engineer Assignment',
@@ -23,6 +54,40 @@ class DistinctResource(Resource):
 
     def get(self):
         """Fetches all the unique values for date, agency and product line columns
+
+        .. :quickref: Fetches all the unique values for date, agency and product line columns
+
+        **Example request**:
+
+        .. http:example:: curl wget httpie python-requests
+
+            GET /api/v1/distinct HTTP/1.1
+            Host: britecore-assignment.herokuapp.com
+            Accept: application/json
+            Authorization: Basic YWRtaW46YWRtaW4=
+
+        **Example response**:
+
+        .. sourcecode:: http
+
+            HTTP/1.1 200 OK
+            Vary: Accept
+            Content-Type: application/json
+
+            {
+                "data": {
+                    "date_id": ["2005", "2006"],
+                    "agency_id": ["1034", "148"],
+                    "line": ["CL", "PL"]
+                },
+                "message": null,
+                "status": "success"
+            }
+
+        :reqheader Authorization: Basic Auth Required
+        :resheader Content-Type: application/json
+        :statuscode 200: Everything works fine.
+        :statuscode 400: Invalid request
         """
         data = {
             'date_id':

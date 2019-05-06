@@ -14,7 +14,6 @@ import os
 import sys
 from os.path import dirname
 
-
 PROJECT_DIR = dirname(os.path.abspath('..'))
 sys.path.insert(0, PROJECT_DIR)
 
@@ -33,7 +32,11 @@ source_suffix = '.rst'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = [
+    'sphinx.ext.autodoc', 'sphinxcontrib.httpdomain',
+    'sphinxcontrib.autohttp.flask', 'sphinxcontrib.autohttp.flaskqref',
+    'sphinxcontrib.httpexample'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -54,3 +57,13 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# HTTP Domain
+http_strict_mode = True
+http_index_localname = "Britecore Assignment API"
+http_index_shortname = 'api'
+http_index_ignore_prefixes = ['/internal', '/_proxy']
+http_headers_ignore_prefixes = ['X-']
+
+# HTTP Example
+httpexample_scheme = 'http'

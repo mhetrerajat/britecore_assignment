@@ -12,7 +12,17 @@ class DashboardResource(Resource):
     decorators = [auth.login_required]
 
     def get(self):
-        """This method implements GET method of route
+        """Access Dashboard
+
+        .. :quickref: Dashboard
+
+        **Example request**:
+
+        .. http:example:: curl
+
+            GET / HTTP/1.1
+            Host: britecore-assignment.herokuapp.com
+            Authorization: Basic YWRtaW46YWRtaW4=
         """
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('index.html'), 200, headers)

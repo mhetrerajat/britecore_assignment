@@ -38,7 +38,7 @@ def create_app(config_name):
 
     # Dashboard Resource
     from app.resources.dashboard import DashboardResource
-    dashboard.add_resource(DashboardResource, '/')
+    dashboard.add_resource(DashboardResource, '')
 
     from app.resources.hello import Hello, DistinctResource
     api.add_resource(Hello, '/')

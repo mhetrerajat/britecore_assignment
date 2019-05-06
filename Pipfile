@@ -14,6 +14,7 @@ coverage = "*"
 coverage-badge = "*"
 sphinx = "*"
 sphinxcontrib-httpdomain = "*"
+sphinxcontrib-httpexample = "*"
 
 [packages]
 flask-restful = "*"

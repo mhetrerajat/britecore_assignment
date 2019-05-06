@@ -21,6 +21,47 @@ class DetailAgencyItem(Resource):
 
     def get(self, agency_id):
         """Fetches all the information about the agency
+
+        .. :quickref: Fetch agency by id
+        
+        **Example request**:
+
+        .. http:example:: curl wget httpie python-requests
+
+            GET /api/v1/detail/agency/3 HTTP/1.1
+            Host: britecore-assignment.herokuapp.com
+            Accept: application/json
+            Content-Type: application/json
+            Authorization: Basic YWRtaW46YWRtaW4=
+
+        :param string agency_id: Unique id of the agency
+            
+        **Example response**:
+
+        .. sourcecode:: http
+
+            HTTP/1.1 200 OK
+            Vary: Accept
+            Content-Type: application/json
+
+            {
+                "data": {
+                    "active_producers": 14,
+                    "agency_appointment_year": 1957,
+                    "comissions_end_year": 0,
+                    "comissions_start_year": 0,
+                    "id": "3",
+                    "max_age": 85,
+                    "min_age": 48,
+                    "vendor": "Unknown"
+                },
+                "message": null,
+                "status": "success"
+            }
+
+        :resheader Content-Type: application/json
+        :statuscode 200: Returns information about the given agency
+        :statuscode 400: When agency id is invalid or missing in the request
         
         :param agency_id: Unique id of an agency
         :type agency_id: str

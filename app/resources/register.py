@@ -30,6 +30,39 @@ class Register(Resource):
     def post(self):
         """This method creates new user using parameters given in request
 
+        .. :quickref: Create New User
+        
+        **Example request**:
+
+        .. http:example:: curl wget httpie python-requests
+
+            POST /api/v1/auth/register HTTP/1.1
+            Host: britecore-assignment.herokuapp.com
+            Accept: application/json
+            Content-Type: application/json
+
+            {
+            "username": "dummy",
+            "password": "dummy"
+            }
+
+        :jsonparam string username: Alphanumeric username of an user
+        :jsonparam string password: Password
+            
+        **Example response**:
+
+        .. sourcecode:: http
+
+            HTTP/1.1 200 OK
+            Vary: Accept
+            Content-Type: application/json
+
+            {"data":{"username":"dummy"},"message":"User created successfully!","status":"success"}
+
+        :resheader Content-Type: application/json
+        :statuscode 200: Everything works fine and user has been created
+        :statuscode 400: Invalid request or user already exists
+
         :raises RequirementParameterMissing: When any required parameters are missing in request
         :raises UserAlreadyExistsException: When another user exists with same username
         """

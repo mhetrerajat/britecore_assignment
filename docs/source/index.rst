@@ -10,6 +10,21 @@ Welcome to Britecore Assignment's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+API Documentation
+=================
+
+Summary
+-------
+
+.. qrefflask:: run:application
+  :undoc-static:
+
+API Details
+-----------
+
+.. autoflask:: run:application
+   :undoc-static:
+
 Indices and tables
 ==================
 

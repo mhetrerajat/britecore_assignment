@@ -95,7 +95,7 @@ REST API is now running on http://localhost:8000
 - Says Hello
   
   ```bash
-  curl -XGET 'http://s/api/v1/'
+  curl -i http://britecore-assignment.herokuapp.com/api/v1/ -H 'Accept: application/json'
   ```
 
 - Create user
