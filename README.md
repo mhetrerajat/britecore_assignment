@@ -73,7 +73,7 @@ REST API is now running on http://localhost:8000
 
 - [x] Tests with good test coverage
 
-- [ ] Documented code and that follows pep8 and The Zen of Python
+- [x] Documented code and that follows pep8 and The Zen of Python
 
 ### Endpoints
 
