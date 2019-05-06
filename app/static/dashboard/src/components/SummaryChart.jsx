@@ -1,13 +1,13 @@
-import React, { PropTypes } from "react";
+import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 import numeral from "numeral";
+import PropTypes from "prop-types";
 
 import ChartController from "./ChartController";
 
 const SummaryChart = ({
   data,
-  product_lines,
-  years,
+  productLines,
   distincts,
   startYear,
   endYear,
@@ -28,7 +28,7 @@ const SummaryChart = ({
       <div id="summary-bar-chart" style={{ height: 400 }}>
         <ResponsiveBar
           data={data}
-          keys={product_lines}
+          keys={productLines}
           indexBy="year"
           margin={{
             top: 50,
@@ -92,7 +92,7 @@ const SummaryChart = ({
               ]
             }
           ]}
-          animate={true}
+          animate
           motionStiffness={90}
           motionDamping={15}
         />
@@ -100,5 +100,25 @@ const SummaryChart = ({
     </div>
   </div>
 );
+
+SummaryChart.propTypes = {
+  data: PropTypes.instanceOf(Array),
+  distincts: PropTypes.instanceOf(Object),
+  endYear: PropTypes.string,
+  onChangeEndYear: PropTypes.func,
+  onChangeStartYear: PropTypes.func,
+  productLines: PropTypes.instanceOf(Array),
+  startYear: PropTypes.string
+};
+
+SummaryChart.defaultProps = {
+  data: [],
+  distincts: { date_id: [], agency_id: [], line: [] },
+  endYear: "2007",
+  startYear: "2005",
+  onChangeEndYear: () => {},
+  onChangeStartYear: () => {},
+  productLines: []
+};
 
 export default SummaryChart;

@@ -1,24 +1,26 @@
 import axios from "axios";
-import { keyBy, groupBy, forEach, round, uniq, gt } from "lodash";
+import { keyBy, groupBy, forEach, round, uniq } from "lodash";
 
 import API from "./api";
 
 function cleanSummaryData(data) {
-  let groupedByYear = groupBy(data, function(item) {
+  const groupedByYear = groupBy(data, function(item) {
     return item.year;
   });
-  let result = [],
-    productLines = [],
-    years = [];
+  const result = [];
+
+  let productLines = [];
+
+  let years = [];
   forEach(groupedByYear, function(value, year) {
-    let groupedByProductLine = keyBy(value, "product_line");
+    const groupedByProductLine = keyBy(value, "product_line");
     years.push(year);
     let item = {
-      year: year
+      year
     };
     forEach(groupedByProductLine, function(premiumDetails, productLine) {
       item = Object.assign(item, {
-        [productLine]: round(premiumDetails["earned_premium"])
+        [productLine]: round(premiumDetails.earned_premium)
       });
       productLines.push(productLine);
     });
@@ -30,14 +32,14 @@ function cleanSummaryData(data) {
   return { result, productLines, years };
 }
 
-let stateHandler = {
-  setLoadingState: function(_this, loadingState) {
+const stateHandler = {
+  setLoadingState(_this, loadingState) {
     _this.setState({ isLoading: loadingState });
   },
-  setErrorState: function(_this, errorState, errorMessage) {
+  setErrorState(_this, errorState, errorMessage) {
     _this.setState({
       isError: errorState,
-      errorMessage: errorMessage
+      errorMessage
     });
   }
 };
@@ -55,13 +57,13 @@ export function fetchInitState(_this, startYear, endYear) {
       })
     )
     .then(function({ reportData, distinctData }) {
-      let { result, productLines, years } = cleanSummaryData(reportData);
+      const { result, productLines, years } = cleanSummaryData(reportData);
       _this.setState({
         data: result,
-        product_lines: productLines,
-        years: years,
-        startYear: startYear,
-        endYear: endYear,
+        productLines,
+        years,
+        startYear,
+        endYear,
         distincts: distinctData
       });
     })
@@ -78,15 +80,15 @@ export function getSummary(_this, startYear, endYear) {
   stateHandler.setLoadingState(_this, true);
   API.getReport(startYear, endYear)
     .then(response => {
-      let { result, productLines, years } = cleanSummaryData(
+      const { result, productLines, years } = cleanSummaryData(
         response.data.data
       );
       _this.setState({
         data: result,
-        product_lines: productLines,
-        years: years,
-        startYear: startYear,
-        endYear: endYear
+        productLines,
+        years,
+        startYear,
+        endYear
       });
     })
     .catch(function(error) {

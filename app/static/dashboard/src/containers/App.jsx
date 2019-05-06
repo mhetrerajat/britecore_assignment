@@ -1,20 +1,18 @@
-import React, { PropTypes } from "react";
+import React from "react";
 
+import { gt } from "lodash";
 import SummaryChart from "../components/SummaryChart";
 import LoadingComponent from "../components/LoadingComponent";
 import ErrorComponent from "../components/ErrorComponent";
 import NavBar from "../components/NavBar";
 
-import { getSummary, fetchDistinctValues, fetchInitState } from "../utils";
-
-import { gt } from "lodash";
+import { getSummary, fetchInitState } from "../utils";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product_lines: [],
-      years: [],
+      productLines: [],
       data: [],
       distincts: {
         date_id: [],
@@ -27,21 +25,19 @@ class App extends React.Component {
       isError: false,
       errorMessage: ""
     };
-  }
 
-  componentWillMount() {
-    //fetchDistinctValues(this);
+    this.onChangeEndYear = this.onChangeEndYear.bind(this);
+    this.onChangeStartYear = this.onChangeStartYear.bind(this);
   }
 
   componentDidMount() {
-    let { startYear, endYear } = this.state;
-    //getSummary(this, startYear, endYear);
+    const { startYear, endYear } = this.state;
     fetchInitState(this, startYear, endYear);
   }
 
   onChangeStartYear(event) {
-    let startYear = event.target.value;
-    let { endYear } = this.state;
+    const startYear = event.target.value;
+    const { endYear } = this.state;
     if (gt(endYear, startYear)) {
       getSummary(this, startYear, endYear);
     } else {
@@ -53,8 +49,8 @@ class App extends React.Component {
   }
 
   onChangeEndYear(event) {
-    let endYear = event.target.value;
-    let { startYear } = this.state;
+    const endYear = event.target.value;
+    const { startYear } = this.state;
     if (gt(endYear, startYear)) {
       getSummary(this, startYear, endYear);
     } else {
@@ -66,10 +62,9 @@ class App extends React.Component {
   }
 
   render() {
-    let {
+    const {
       data,
-      product_lines,
-      years,
+      productLines,
       distincts,
       startYear,
       endYear,
@@ -83,13 +78,12 @@ class App extends React.Component {
       premiumEarnedComponent = (
         <SummaryChart
           data={data}
-          product_lines={product_lines}
-          years={years}
+          productLines={productLines}
           distincts={distincts}
           startYear={startYear}
           endYear={endYear}
-          onChangeEndYear={this.onChangeEndYear.bind(this)}
-          onChangeStartYear={this.onChangeStartYear.bind(this)}
+          onChangeEndYear={this.onChangeEndYear}
+          onChangeStartYear={this.onChangeStartYear}
         />
       );
     } else if (isError) {
