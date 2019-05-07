@@ -18,6 +18,7 @@ help:
 	@echo "make login - Logins to command prompt in docker container running on Heroku"
 	@echo "make clean - Deletes unused docker images and containers"
 	@echo "make report - Generates code coverage report"
+	@echo "make init - Initialized project with sample data in database"
 
 pretty:
 	find . -name '*.pyc' -delete
@@ -57,5 +58,12 @@ report:
 	$(PYTHON) -m coverage run --include=app/* --omit=tests/*,config.py -m unittest discover --start-directory=tests
 	$(PYTHON) -m coverage report 
 	$(PYTHON) -m coverage html
-	$(PYTHON) -m coverage-badge -o coverage.svg
+	rm -rf coverage.svg
+	coverage-badge -o coverage.svg
 	open htmlcov/index.html
+init:
+	$(PYTHON) -m flask db stamp head
+	$(PYTHON) -m flask db migrate
+	$(PYTHON) -m flask db upgrade
+	$(PYTHON) -m flask initdb
+	$(PYTHON) -m flask import sample_data.csv

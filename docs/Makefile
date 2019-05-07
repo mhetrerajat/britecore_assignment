@@ -25,3 +25,5 @@ docs:
 	sphinx-apidoc -o source/ ../app
 	make clean
 	make html
+view:
+	open build/html/index.html

@@ -1,15 +1,14 @@
 import pandas as pd
 from flask import current_app as app
 from flask.json import jsonify
-from flask_restful import Resource, marshal, reqparse
+from flask_restful import Resource, reqparse
 
 from app import auth, db
-from app.utils.schema import SummarySchema
 
 
 class SummaryResource(Resource):
-    """This class implements API to filter out information from facts table based on various
-    attributes.
+    """This class implements API to get summmarized agency performance based on parameters like
+    product, year and risk state.
     """
     decorators = [auth.login_required]
 
@@ -17,7 +16,7 @@ class SummaryResource(Resource):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('agency',
                                    type=str,
-                                   required=False,
+                                   required=True,
                                    dest='agency_id')
         self.reqparse.add_argument('year',
                                    type=str,
@@ -31,20 +30,12 @@ class SummaryResource(Resource):
                                    type=str,
                                    required=False,
                                    dest='risk_state_id')
-        self.reqparse.add_argument('offset',
-                                   type=int,
-                                   required=False,
-                                   default=0)
-        self.reqparse.add_argument('limit',
-                                   type=int,
-                                   required=False,
-                                   default=25)
         super(SummaryResource, self).__init__()
 
     def get(self):
-        """Fetches summarised information by filters
+        """Fetches summarized agency performance
 
-        .. :quickref: Fetches summarised information by filters
+        .. :quickref: Fetches summarized agency performance
         
         **Example request**:
 
@@ -56,14 +47,12 @@ class SummaryResource(Resource):
             Authorization: Basic YWRtaW46YWRtaW4=
 
             :query agency: 3
-            :query limit: 1
+            :query year: 2005
 
-        :query string agency: Unique id of the agency
+        :query string agency (*required*): Unique id of the agency.
         :query string year: Year
         :query string product: Product Name
         :query string risk_state: Risk State
-        :query int offset: Offset number. Defaults to 0
-        :query int limit: Limit the number of records. Defaults to 25
             
         **Example response**:
 
@@ -76,27 +65,38 @@ class SummaryResource(Resource):
             {
                 "data": [
                     {
-                    "agency_id": "3",
-                    "bound_quotes": 50,
-                    "date_id": "2005",
-                    "earned_premium": 297840.14,
-                    "growth_rate_3_years": 0,
-                    "id": 48952,
-                    "incurred_losses": 231671.1,
-                    "loss_ratio": 0.813821516,
-                    "loss_ratio_3_year": 0,
-                    "new_business_in_written_premium": 24625.37,
-                    "policy_inforce_quantity": 2947,
-                    "prev_policy_inforce_quantity": 3031,
-                    "product_id": "ANNIV",
-                    "retention_policy_quantity": 2780,
-                    "retention_ratio": 0.917189047,
-                    "risk_state_id": "IN",
-                    "total_quotes": 392,
-                    "total_written_premium": 284670.65
+                    "agency": {
+                        "bound_quotes": 50.0, 
+                        "earned_premium": 30335.288863636364, 
+                        "incurred_losses": 8509.397954545455, 
+                        "loss_ratio": 0.10471840079545452, 
+                        "new_business_in_written_premium": 1057.5259090909092, 
+                        "policy_inforce_quantity": 213.6590909090909, 
+                        "prev_policy_inforce_quantity": 224.6590909090909, 
+                        "retention_policy_quantity": 201.8181818181818, 
+                        "retention_ratio": 0.3957753397954546, 
+                        "total_quotes": 392.0, 
+                        "total_written_premium": 25521.250909090904
+                    }, 
+                    "note": "Overall Mean Vs Agency Mean for data with filter on date_id = 2005", 
+                    "overall": {
+                        "bound_quotes": 45.84079420183933, 
+                        "earned_premium": 16729.09540532308, 
+                        "incurred_losses": 7149.847685608129, 
+                        "loss_ratio": 1285.3961976702374, 
+                        "new_business_in_written_premium": 2021.5650989707026, 
+                        "policy_inforce_quantity": 172.01193738960959, 
+                        "prev_policy_inforce_quantity": 174.63042816249467, 
+                        "retention_policy_quantity": 151.39600462878371, 
+                        "retention_ratio": 0.3373681922621354, 
+                        "total_quotes": 320.8753273646385, 
+                        "total_written_premium": 16707.483948474368
+                    }, 
+                    "summarized_on": "date_id", 
+                    "value": "2005"
                     }
-                ],
-                "message": null,
+                ], 
+                "message": null, 
                 "status": "success"
             }
 
@@ -106,28 +106,60 @@ class SummaryResource(Resource):
         """
         args = self.reqparse.parse_args()
         df = pd.read_sql_table('facts', db.engine)
+        summary_columns = [
+            'retention_policy_quantity', 'policy_inforce_quantity',
+            'prev_policy_inforce_quantity', 'new_business_in_written_premium',
+            'total_written_premium', 'earned_premium', 'incurred_losses',
+            'retention_ratio', 'loss_ratio', 'bound_quotes', 'total_quotes'
+        ]
 
         df.fillna(value=0, inplace=True)
 
-        # Apply filter query
-        query = {
-            k: v
-            for k, v in args.items() if v and k not in ['offset', 'limit']
-        }
-        for key, value in query.items():
-            _query = "{0} == @value".format(key)
-            df = df.query(_query)
+        # Filter out data for given agency id
+        agency_df = df.query('agency_id == @args.agency_id')
 
-        # Limit rows
-        df = df.iloc[args.offset:args.offset + args.limit]
+        # Calculate overall average vs agency average
+        query = {k: v for k, v in args.items() if v and k not in ['agency_id']}
+        data = []
+        if not query:
+            app.logger.debug(
+                "As other params are not given, calculating summary at agency level"
+            )
+            # Summary at agency level
+            data.append({
+                'summarized_on':
+                'agency',
+                'value':
+                args.agency_id,
+                'overall':
+                df[summary_columns].mean().fillna(value=0).to_dict(),
+                'agency':
+                agency_df[summary_columns].mean().fillna(value=0).to_dict(),
+                'note':
+                'Overall Mean Vs Agency Mean'
+            })
+        else:
+            for key, value in query.items():
+                _query = '{0} == "{1}"'.format(key, value)
+                app.logger.debug(
+                    "Calculating summary at {0} level : {1} | {2}".format(
+                        key, value, _query))
+                tmp = {
+                    'summarized_on':
+                    key,
+                    'value':
+                    value,
+                    'overall':
+                    df.query(_query)[summary_columns].mean().fillna(
+                        value=0).to_dict(),
+                    'agency':
+                    agency_df.query(_query)[summary_columns].mean().fillna(
+                        value=0).to_dict(),
+                    'note':
+                    'Overall Mean Vs Agency Mean for data with filter on {0} = {1}'
+                    .format(key, value)
+                }
+                data.append(tmp)
 
-        app.logger.debug(
-            "Returing {0} rows after applying filters : {1}".format(
-                df.shape[0], query))
-
-        response = {
-            'data': marshal(df.to_dict('records'), SummarySchema),
-            'status': 'success',
-            'message': None
-        }
+        response = {'data': data, 'status': 'success', 'message': None}
         return jsonify(response)

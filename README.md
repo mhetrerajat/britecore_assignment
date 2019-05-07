@@ -143,7 +143,7 @@ REST API is now running on http://localhost:8000
 - Fetched summarized details
   
   ```bash
-  curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/summary/"
+  curl -i 'http://britecore-assignment.herokuapp.com/api/v1/summary/?agency=3&year=2005' -H 'Accept: application/json' --user admin:admin
   ```
 
 - Fetch report with JSON API
