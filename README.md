@@ -9,7 +9,7 @@ Deployed on Heroku : http://britecore-assignment.herokuapp.com/
 ![Python](https://img.shields.io/badge/python-3.7-blue.svg)
 ![Code Coverage](coverage.svg)
 
-Details about assignment task are ![here](assignment/BriteCore\ Engineering\ Application.html)
+NOTE: Details about assignment task are in **assignment** directory
 
 ### Requirements
 
