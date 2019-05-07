@@ -62,6 +62,15 @@ make init # Do database migrations and creates sample data with sample_data.csv
 flask run # Runs flask server
 ```
 
+### CLI
+
+-  Triggers Data Processing Pipeline. Takes path of csv file as parameter and uploads data in database
+
+```bash
+# Import data
+flask import <PATH_OF_CSV_FILE>
+```
+
 ### Test
 
 To run all test cases
@@ -195,13 +204,3 @@ make view # Opens in browser
   ```bash
   curl -u admin:admin -L -XGET "http://britecore-assignment.herokuapp.com/api/v1/distinct"
   ```
-
-### CLI
-
-```bash
-# Create admin user
-flask initdb
-
-# Import data
-flask import <PATH_OF_CSV_FILE>
-```
