@@ -53,6 +53,38 @@ DATABASE_URL=sqlite:////tmp/britecore.db
 
 REST API is now running on http://localhost:8000
 
+Note : To run api outside the docker environment
+
+```bash
+# Current Working Directory -> britecore_assignment
+
+make init # Do database migrations and creates sample data with sample_data.csv
+flask run # Runs flask server
+```
+
+### Test
+
+To run all test cases
+
+```bash
+# Current Working Directory -> britecore_assignment
+
+make test # Runs all test cases
+make report # Runs all test cases and generates test coverage report
+```
+
+### Documentation
+
+To generate documentation for API and Code base:
+
+```bash
+# Current Working Directory -> britecore_assignment
+
+cd docs
+make docs # Generates documentation
+make view # Opens in browser
+```
+
 ### Tasks
 
 - [x] Build a Data Pipeline/ETL process that takes the CSVs as input and saves into a database at a detailed level while also calculating summarized views. These summarized views could follow star schema or any other that you think will allow for easy querying using different pivots/dimensions. The Data Pipeline can be manually triggered by running a script (include instructions of how to do it!) or automated somehow.  
@@ -84,8 +116,8 @@ REST API is now running on http://localhost:8000
 | GET    | /api/v1/detail/agency                    | Fetches detailed information about agencies. Support for filters.                                                        |
 | POST   | /api/v1/detail/agency                    | Create Agency                                                                                                            |
 | GET    | /api/v1/detail/agency/[string:agency_id] | Fetches detailed information about particular agency                                                                     |
-| GET    | /api/v1/summary/                         | Fetches summarized information. Supports filters and pagination.                                                         |
-| GET    | /api/v1/report/                           | Fetch report with premium info as JSON API                                                                               |
+| GET    | /api/v1/summary/                         | Fetches summarized agency performance                                                                                    |
+| GET    | /api/v1/report/                          | Fetch report with premium info as JSON API                                                                               |
 | GET    | /api/v1/report/csv                       | Download report with premium information as CSV                                                                          |
 | GET    | /                                        | Dashboard                                                                                                                |
 | GET    | /api/v1/distinct                         | Fetches distinct values for year, agency and product line.                                                               |
