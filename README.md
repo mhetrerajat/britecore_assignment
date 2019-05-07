@@ -64,7 +64,7 @@ flask run # Runs flask server
 
 ### CLI
 
--  Triggers Data Processing Pipeline. Takes path of csv file as parameter and uploads data in database
+- Triggers Data Processing Pipeline. Takes path of csv file as parameter and uploads data in database
 
 ```bash
 # Import data
@@ -136,7 +136,7 @@ make view # Opens in browser
 - Says Hello
   
   ```bash
-  curl -i http://britecore-assignment.herokuapp.com/api/v1/ -H 'Accept: application/json'
+  curl -i "http://britecore-assignment.herokuapp.com/api/v1/" -H 'Accept: application/json'
   ```
 
 - Create user
@@ -145,7 +145,7 @@ make view # Opens in browser
   curl -XPOST -H "Content-type: application/json" -d '{
    "username": "dummy",
    "password": "dummy"
-  }' 'http://britecore-assignment.herokuapp.com/api/v1/auth/register'
+  }' "http://britecore-assignment.herokuapp.com/api/v1/auth/register"
   ```
 
 - Fetch detailed information about agency with id = 3
@@ -184,7 +184,7 @@ make view # Opens in browser
 - Fetched summarized details
   
   ```bash
-  curl -i 'http://britecore-assignment.herokuapp.com/api/v1/summary/?agency=3&year=2005' -H 'Accept: application/json' --user admin:admin
+  curl -i "http://britecore-assignment.herokuapp.com/api/v1/summary/?agency=3&year=2005" -H 'Accept: application/json' --user admin:admin
   ```
 
 - Fetch report with JSON API
