@@ -29,6 +29,11 @@ TEST_DATABASE_URL=sqlite:////tmp/britecore_test.db
 DATABASE_URL=sqlite:////tmp/britecore.db
 ```
 
+NOTE:
+
+- Pipenv is required to run this project. Installation instruction for pipenv can be found [here](https://github.com/pypa/pipenv)
+- Otherwise, virtualenv can be used. **requirements.txt** also is given. Installation instruction for virtualenv can be found [here](https://github.com/pypa/virtualenv)
+
 ### Get Started
 
 - Initialize environment
