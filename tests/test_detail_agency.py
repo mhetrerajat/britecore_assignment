@@ -30,7 +30,6 @@ class DetailAgencyResourceTestCase(BaseTestCase):
         self.register_user('admin', 'admin')
 
         response = self.create_agency()
-        json.loads(response.data.decode())
 
         self.assert200(response)
 
@@ -39,6 +38,14 @@ class DetailAgencyResourceTestCase(BaseTestCase):
         self.register_user('admin', 'admin')
 
         response = self.create_agency(id_missing=True)
-        json.loads(response.data.decode())
+
+        self.assert400(response)
+
+    def test_create_duplicate_agency(self):
+        # Create User
+        self.register_user('admin', 'admin')
+
+        response = self.create_agency("9999999")
+        response = self.create_agency("9999999")
 
         self.assert400(response)
