@@ -64,8 +64,9 @@ class BaseTestCase(TestCase):
         return self.client.get(
             url, headers={'Authorization': self.get_basic_auth_token()})
 
-    def create_agency(self, id_missing=False):
-        agency_id = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    def create_agency(self, agency_id=None, id_missing=False):
+        agency_id = datetime.utcnow().strftime(
+            '%Y%m%d%H%M%S') if not agency_id else agency_id
         data = {
             'id': agency_id if not id_missing else None,
             'agency_appointment_year': 1957,
