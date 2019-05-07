@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="gr__engineering-application_britecore_com"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="https://engineering-application.britecore.com/favicon.ico"><title>BriteCore Engineering Application</title><link href="BriteCore%20Engineering%20Application_files/app.css" rel="preload" as="style"><link href="BriteCore%20Engineering%20Application_files/chunk-vendors.css" rel="preload" as="style"><link href="BriteCore%20Engineering%20Application_files/app.js" rel="preload" as="script"><link href="BriteCore%20Engineering%20Application_files/chunk-vendors.js" rel="preload" as="script"><link href="BriteCore%20Engineering%20Application_files/chunk-vendors.css" rel="stylesheet"><link href="BriteCore%20Engineering%20Application_files/app.css" rel="stylesheet"><script src="BriteCore%20Engineering%20Application_files/api.js"></script><script async="" src="BriteCore%20Engineering%20Application_files/analytics.js" charset="utf8"></script></head><body data-gr-c-s-loaded="true" class="__bm__extension"><noscript><strong>We're sorry but BriteCore Engineering Application doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div class="ea-main-bg"><div class="ea-main-container el-row"><div class="el-col el-col-24 el-col-xs-24 el-col-md-12"><a href="https://engineering-application.britecore.com/"><img src="BriteCore%20Engineering%20Application_files/logo.png" alt="" class="ea-logo"></a></div><div class="el-col el-col-24 el-col-xs-24 el-col-md-12"><h1 class="text-h1 text-gray text-right">Engineering Application</h1></div><div class="ea-main-view el-col el-col-24"><div class="ui text "><!----><span><p class="text-gray"><em>The link to this test will expire. We recommend that you save this page locally.</em></p><span class="ea-test"><h1>Data Engineer Hiring Project</h1>
+<p>Build a simple analytics platform for a Fake Insurance company using the <a href="https://engineering-application.britecore.com/dataset.zip">Kaggle dataset</a> <strong><a href="https://www.kaggle.com/moneystore/agencyperformance">Agency Performance Model</a></strong>. This platform has two components: An ETL or Data Pipelines and an API.</p>
+<h2>Minimum Requirements</h2>
+<ul>
+<li>
+<p>Build a Data Pipeline/ETL process that takes the CSVs as input and 
+saves into a database at a detailed level while also calculating 
+summarized views. These summarized views could follow star schema or any
+ other that you think will allow for easy querying using different 
+pivots/dimensions. The Data Pipeline can be manually triggered by 
+running a script (include instructions of how to do it!) or automated 
+somehow.</p>
+</li>
+<li>
+<p>Build an API (REST or GraphQL) that provides:</p>
+<ul>
+<li>Detailed information using different parameters (like agency, month, year, state, etc)</li>
+<li>Summarized information using different parameters (like agency, month, year, state, etc)</li>
+<li>An XLS, XLSX or CSV report with Premium info by Agency and Product Line using date range as parameters</li>
+</ul>
+</li>
+<li>
+<p>The Data Pipeline/ETL process and also the logic for generating the report must be done using Pandas</p>
+</li>
+<li>
+<p>Deployment to AWS</p>
+</li>
+</ul>
+<h3>ETL/Data Pipeline Flow</h3>
+<p><img src="BriteCore%20Engineering%20Application_files/data_pipeline.png" alt=""></p>
+<h2>Tech Stack Requirements</h2>
+<p>The following are requirements on the tech stack. This stack demonstrates mastery of tools our team favors:</p>
+<ul>
+<li>Server-Side Development: Python 2.7+ or 3.5+ and Pandas for the API and report</li>
+<li>Server Framework: Django, Flask or SimpleHTTPServer</li>
+</ul>
+<p>Make sure that your instructions for accessing or otherwise running your code are extremely clear.</p>
+<h3>Bonus points</h3>
+<p>We know people may have jobs or other important things to do, leaving
+ them little time available to complete our project. The above are the 
+minimum requirements. Any of the following could make you stand out from
+ the crowd by showing you current proficiency with other skills and 
+tools:</p>
+<ul>
+<li>Integration or Unit tests (at least one of those). You can use <code>pytest</code> or <code>unittest</code></li>
+<li>Authentication so that only authorized users can query the API</li>
+<li>Tests with good test coverage</li>
+<li>Documented code and that follows pep8 and The Zen of Python</li>
+<li>API documentation</li>
+<li>Using docker for deployment</li>
+<li>Using other AWS stack components relevant for Data Engineering (Lambdas, S3, DynamoDb, Cognito, etc.)</li>
+<li>Using any CI service like Travis, Shippable, Circle CI, etc. for running the tests</li>
+<li>Including some predictive analysis like forecasting or categorization as part of the API</li>
+<li>Incremental ETL that only processes and loads new records</li>
+<li>Build a web app that consumes the API (we use Vue.js and Knockout)
+<ul>
+<li>Show some charts, tables, dashboards</li>
+<li>Let users run reports with different input parameters and date ranges from there</li>
+</ul>
+</li>
+</ul>
+<h2>Guidelines</h2>
+<p>We're looking for someone who can work independently and is curious 
+and self-motivated. One major goal of this project is to see how you 
+fill in ambiguities creatively. There is no such thing as a perfect 
+project here, just interpretations of the instructions above, so be 
+creative in your approach.</p>
+<h2>Deliverables</h2>
+<p>In order to move your application forward, deliverables will include:</p>
+<ol>
+<li>
+<p>A deployed version of your project, on AWS.</p>
+</li>
+<li>
+<p>A GitHub repo containing your project. Your repo must contain these two items:</p>
+<ul>
+<li>A detailed README that explains your approach and deployment method</li>
+<li>Your code solution to this test</li>
+</ul>
+</li>
+<li>
+<p>Adding of these items to your resume's cover letter:</p>
+<ul>
+<li>The link to the GitHub repo that lists this project</li>
+<li>The link to the deployed version of your project</li>
+</ul>
+</li>
+<li>
+<p>Uploading of your resume with cover letter in PDF or DOCX format by <a href="https://hire.withgoogle.com/public/jobs/britecorecom/view/P_AAAAAAEAADyHOT0mDchE4T">clicking this link</a>.</p>
+</li>
+</ol>
+<h2>Questions</h2>
+<p>For questions, please use data-hires@britecore.com.</p>
+<p>Thank you for your time. We are excited to review your project!</p>
+</span><!----></span></div></div></div></div><script src="BriteCore%20Engineering%20Application_files/chunk-vendors.js"></script><script src="BriteCore%20Engineering%20Application_files/app.js"></script></body></html>
