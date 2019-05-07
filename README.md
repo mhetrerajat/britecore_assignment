@@ -36,7 +36,7 @@ DATABASE_URL=sqlite:////tmp/britecore.db
   ```bash
   cd britecore_asssignment
   pipenv shell
-  pipenv install --dev
+  pipenv install -r requirements.txt
   ```
 
 - Build Docker Image
