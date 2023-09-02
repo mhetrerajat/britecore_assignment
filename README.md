@@ -1,6 +1,6 @@
 # Britecore Assignment
 
-Britecore Data Engineerning Assignment
+Britecore Data Engineering Assignment
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](http://britecore-assignment.herokuapp.com/)
 
@@ -9,7 +9,7 @@ Deployed on Heroku : http://britecore-assignment.herokuapp.com/
 ![Python](https://img.shields.io/badge/python-3.7-blue.svg)
 ![Code Coverage](coverage.svg)
 
-NOTE: Details about assignment task are in **assignment** directory
+NOTE: Details about the assignment task are in **assignment** directory
 
 ### Requirements
 
